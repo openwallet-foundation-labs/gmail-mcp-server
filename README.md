@@ -1,4 +1,5 @@
 # Gmail MCP Server
+[![smithery badge](https://smithery.ai/badge/@Quantum-369/Gmail-mcp-server)](https://smithery.ai/server/@Quantum-369/Gmail-mcp-server)
 
 A powerful and flexible Gmail integration server built using the MCP (Message Control Protocol) framework. This server provides a robust interface to interact with Gmail APIs, offering functionality for reading, sending, and managing emails programmatically.
 
@@ -22,6 +23,14 @@ Before running the Gmail MCP server, ensure you have the following:
 4. Required Python packages (specified in pyproject.toml)
 
 ## Installation
+
+### Installing via Smithery
+
+To install Gmail Integration Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@Quantum-369/Gmail-mcp-server):
+
+```bash
+npx -y @smithery/cli install @Quantum-369/Gmail-mcp-server --client claude
+```
 
 1. Clone the repository:
 ```bash
