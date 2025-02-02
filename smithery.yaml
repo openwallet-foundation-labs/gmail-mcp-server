@@ -1,0 +1,21 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - clientSecretPath
+      - emailIdentifier
+    properties:
+      clientSecretPath:
+        type: string
+        description: Path to the OAuth 2.0 client secret JSON file.
+      emailIdentifier:
+        type: string
+        description: Email identifier for the Gmail account.
+  commandFunction:
+    # A function that produces the CLI command to start the MCP on stdio.
+    |-
+    (config) => ({ command: 'python', args: ['gmail_server.py'], env: { CLIENT_SECRET_PATH: config.clientSecretPath, EMAIL_IDENTIFIER: config.emailIdentifier } })
