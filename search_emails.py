@@ -23,3 +23,4 @@ for message in email_messages:
         print('-' * 50)
     else:
         print(f"Skipping message ID {message['id']} as it couldn't be retrieved.")
+
