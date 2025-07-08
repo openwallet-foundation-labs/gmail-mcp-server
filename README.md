@@ -52,6 +52,25 @@ source venv/bin/activate
 pip install .
 ```
 
+## Running on Ubuntu
+
+1. Install Python 3.12 and create a virtual environment if you haven't already:
+   ```bash
+   sudo apt install python3.12 python3.12-venv -y
+   python3.12 -m venv venv
+   source venv/bin/activate
+   ```
+2. Place your downloaded `client_secret.json` in the project root.
+3. Generate an OAuth token for the Gmail account you want to use. Copy the URL
+   printed by the script into a web browser and complete the sign-in process:
+   ```bash
+   python gmail_token_creator.py
+   ```
+4. Start the server:
+   ```bash
+   python gmail_server.py
+   ```
+
 ## Setup Google Cloud Project
 
 1. Go to the [Google Cloud Console](https://console.cloud.google.com/)
@@ -75,6 +94,10 @@ email_identifier = 'your.email@gmail.com'  # Change this for each account
 ```bash
 python gmail_token_creator.py
 ```
+The script prints an authorization URL. Copy this URL into your web browser,
+complete the Google consent flow, and copy the verification code back into the
+terminal if prompted. A token file will be created inside `token_files/` for
+future use.
 
 3. Repeat the process for each Gmail account you want to integrate
 
@@ -95,6 +118,19 @@ python gmail_token_creator.py
 ```bash
 python gmail_server.py
 ```
+
+### Running with Docker
+
+You can also build a container image using the provided `Dockerfile`:
+
+```bash
+docker build -t gmail-mcp-server .
+docker run -v $(pwd)/client_secret.json:/app/client_secret.json \
+           -v $(pwd)/token_files:/app/token_files gmail-mcp-server
+```
+
+The container runs the same server and stores authentication tokens in the
+`token_files` directory on the host so they persist between runs.
 
 ### Available Tools
 
