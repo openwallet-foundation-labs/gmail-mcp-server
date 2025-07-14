@@ -2,7 +2,7 @@ import os
 import logging
 from pathlib import Path
 from typing import List, Optional, Dict, Any
-from mcp.server.fastmcp import FastMCP, Context
+from mcp.server.fastmcp import TMCP
 
 from gmail_api import (
     init_gmail_service,
@@ -27,8 +27,8 @@ logging.basicConfig(
 logger = logging.getLogger('gmail_mcp')
 
 # Initialize MCP Server
-mcp = FastMCP(
-    "Gmail MCP Server",
+mcp = TMCP(
+    "GmailServer",
     dependencies=["google-api-python-client", "google-auth-oauthlib"]
 )
 

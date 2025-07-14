@@ -8,6 +8,7 @@ token_files/
 *.log
 __pycache__/
 *.pyc
+*.sqlite
 
 # Mac/Windows files
 .DS_Store

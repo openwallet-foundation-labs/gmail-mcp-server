@@ -10,3 +10,6 @@ dependencies = [
     "google-auth-oauthlib>=1.2.1",
     "mcp[cli]>=1.2.1",
 ]
+
+[tool.uv.sources]
+mcp = { workspace = true }
