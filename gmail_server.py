@@ -29,6 +29,7 @@ mcp = TMCP("GmailServer", dependencies=["google-api-python-client", "google-auth
 
 # Gmail Service Initialization
 CLIENT_FILE = "client_secret.json"
+init_gmail_service(CLIENT_FILE)
 
 
 def get_gmail_service(email_identifier: str):
