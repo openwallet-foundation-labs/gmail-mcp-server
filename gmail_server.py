@@ -14,7 +14,8 @@ from gmail_api import (
     send_email,
 )
 
-from mcp.server.fastmcp import TMCP
+from mcp.server.fastmcp import FastMCP
+from tmcp import TmcpManager
 
 # Configure logging
 logging.basicConfig(
@@ -25,7 +26,12 @@ logging.basicConfig(
 logger = logging.getLogger("gmail_mcp")
 
 # Initialize MCP Server
-mcp = TMCP("GmailServer", dependencies=["google-api-python-client", "google-auth-oauthlib"])
+mcp = FastMCP(
+    "GmailServer",
+    port=8004,
+    transport_manager=TmcpManager(transport="http://localhost:8004/mcp"),
+    dependencies=["google-api-python-client", "google-auth-oauthlib"],
+)
 
 # Gmail Service Initialization
 CLIENT_FILE = "client_secret.json"
@@ -340,7 +346,7 @@ def download_attachments_prompt() -> dict[str, Any]:
 if __name__ == "__main__":
     try:
         logger.info("Starting Gmail MCP server...")
-        mcp.run()
+        mcp.run(transport="streamable-http")
     except KeyboardInterrupt:
         logger.info("Server shutting down gracefully...")
     except Exception as e:

@@ -9,7 +9,8 @@ dependencies = [
     "google-auth>=2.38.0",
     "google-auth-oauthlib>=1.2.1",
     "mcp[cli]>=1.2.1",
+    "tmcp",
 ]
 
 [tool.uv.sources]
-mcp = { workspace = true }
+tmcp = { workspace = true }
