@@ -13,8 +13,8 @@ from gmail_api import (
     search_emails,
     send_email,
 )
-
 from mcp.server.fastmcp import FastMCP
+
 from tmcp import TmcpManager
 
 # Configure logging
@@ -26,21 +26,22 @@ logging.basicConfig(
 logger = logging.getLogger("gmail_mcp")
 
 # Initialize MCP Server
+tmcp = TmcpManager(transport="http://localhost:8004/mcp")
 mcp = FastMCP(
     "GmailServer",
     port=8004,
-    transport_manager=TmcpManager(transport="http://localhost:8004/mcp"),
+    transport_manager=tmcp,
     dependencies=["google-api-python-client", "google-auth-oauthlib"],
 )
 
 # Gmail Service Initialization
-CLIENT_FILE = "client_secret.json"
-init_gmail_service(CLIENT_FILE)
+client_config = tmcp.retrieve_from_wallet("gmail")
+service = init_gmail_service(client_config)
 
 
 def get_gmail_service(email_identifier: str):
     try:
-        service = init_gmail_service(CLIENT_FILE, prefix=f"_{email_identifier}")
+        service = init_gmail_service(client_config, prefix=f"_{email_identifier}")
         if not service:
             raise ValueError(f"Failed to initialize Gmail service for {email_identifier}")
         return service

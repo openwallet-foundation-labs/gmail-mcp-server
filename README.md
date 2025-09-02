@@ -1,5 +1,24 @@
-# Gmail MCP Server
-[![smithery badge](https://smithery.ai/badge/@Quantum-369/Gmail-mcp-server)](https://smithery.ai/server/@Quantum-369/Gmail-mcp-server)
+# Gmail TMCP Server
+
+This is an experimental TMCP server that allows you to send emails via Gmail for demo purposes.
+
+The client secret is stored and retrieved within the TSP Askar wallet. To set the client secret, use the following command with the contents of the client secret JSON file downloaded from the Google Cloud console:
+
+```sh
+tsp secret add gmail '{"installed":{"client_id":"...","project_id":"...","auth_uri":"...","token_uri":"...","auth_provider_x509_cert_url":"...","client_secret":"...","redirect_uris":["..."]}}'
+```
+
+After setting your client secret, run the Gmail server with:
+
+```sh
+uv run gmail_server.py
+```
+
+The server will then ask you to log in with the Gmail account you want to send emails from.
+
+---
+
+# Original description:
 
 A powerful and flexible Gmail integration server built using the MCP (Message Control Protocol) framework. This server provides a robust interface to interact with Gmail APIs, offering functionality for reading, sending, and managing emails programmatically.
 
@@ -33,12 +52,14 @@ npx -y @smithery/cli install @Quantum-369/Gmail-mcp-server --client claude
 ```
 
 1. Clone the repository:
+
 ```bash
 git clone <your-repository-url>
 cd gmail-mcp-server
 ```
 
 2. Create and activate a virtual environment:
+
 ```bash
 python -m venv venv
 # On Windows
@@ -48,6 +69,7 @@ source venv/bin/activate
 ```
 
 3. Install dependencies:
+
 ```bash
 pip install .
 ```
@@ -86,14 +108,17 @@ pip install .
 ## Configuration
 
 1. Set up email identifiers in `gmail_token_creator.py`:
+
 ```python
 email_identifier = 'your.email@gmail.com'  # Change this for each account
 ```
 
 2. Run the token creator to authenticate your Gmail accounts:
+
 ```bash
 python gmail_token_creator.py
 ```
+
 The script prints an authorization URL. Copy this URL into your web browser,
 complete the Google consent flow, and copy the verification code back into the
 terminal if prompted. A token file will be created inside `token_files/` for
@@ -135,6 +160,7 @@ The container runs the same server and stores authentication tokens in the
 ### Available Tools
 
 1. Send Email:
+
 ```python
 await send_gmail(
     email_identifier="your.email@gmail.com",
@@ -146,6 +172,7 @@ await send_gmail(
 ```
 
 2. Search Emails:
+
 ```python
 await search_email_tool(
     email_identifier="your.email@gmail.com",
@@ -156,6 +183,7 @@ await search_email_tool(
 ```
 
 3. Read Latest Emails:
+
 ```python
 await read_latest_emails(
     email_identifier="your.email@gmail.com",
@@ -165,6 +193,7 @@ await read_latest_emails(
 ```
 
 4. Download Attachments:
+
 ```python
 await download_email_attachments(
     email_identifier="your.email@gmail.com",
@@ -184,6 +213,7 @@ await download_email_attachments(
 ## Error Handling
 
 The server includes comprehensive error handling and logging:
+
 - Logs are written to `gmail_mcp.log`
 - Both file and console logging are enabled
 - Detailed error messages for debugging
